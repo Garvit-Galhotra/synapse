@@ -3,10 +3,15 @@ import Router from "express";
 export const authRouter = Router();
 
 // importing controllers
-import { registerUser } from "../controllers/auth.controller.js";
+import { registerUser, loginUser } from "../controllers/auth.controller.js";
 
 // importing validators
-import { registerValidation, validate } from "../validator/auth.validator.js";
+import {
+  registerValidation,
+  validateRegister,
+  loginValidator,
+  validateLogin,
+} from "../validator/auth.validator.js";
 
 // creating APIs
 
@@ -16,4 +21,17 @@ import { registerValidation, validate } from "../validator/auth.validator.js";
  * @access Public
  */
 
-authRouter.post("/register", registerValidation(), validate, registerUser);
+authRouter.post(
+  "/register",
+  registerValidation(),
+  validateRegister,
+  registerUser,
+);
+
+/**
+ * @route POST /api/auth/login
+ * @desc Login a user
+ * @access Public
+ */
+
+authRouter.post("/login", loginValidator(), validateLogin, loginUser);
