@@ -4,6 +4,7 @@ export const itemsRouter = Router();
 
 // importing middlewares
 import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { checkItemExists, checkItem } from "../middlewares/item.middleware.js";
 
 // importing controllers
 import {
@@ -20,13 +21,7 @@ import {
 
 itemsRouter.post("/save", authMiddleware, saveItem);
 
-/**
- * @routes GET /api/item/get
- * @description Get all items of the user from the database
- * @access Private
- */
-
-itemsRouter.get("/", authMiddleware, getItems);
+itemsRouter.get("/", authMiddleware, checkItem, getItems);
 
 /**
  * @routes GET /api/item/:itemId
@@ -34,4 +29,4 @@ itemsRouter.get("/", authMiddleware, getItems);
  * @access Private
  */
 
-itemsRouter.get("/:itemId", authMiddleware, getItemById);
+itemsRouter.get("/:itemId", authMiddleware, checkItemExists, getItemById);

@@ -44,9 +44,7 @@ export const getItems = async (req, res) => {
   const username = req.user.username;
 
   try {
-    const items = await itemModel
-      .find({ user: username })
-      .select("-embeddings");
+    const items = req.item;
     res.status(200).json({ message: "Items fetched successfully", items });
   } catch (err) {
     return res.status(500).json({ message: "Error fetching items" });
@@ -61,15 +59,9 @@ export const getItems = async (req, res) => {
 
 export const getItemById = async (req, res) => {
   const username = req.user.username;
-  const { itemId } = req.params;
 
   try {
-    const item = await itemModel
-      .findOne({ _id: itemId, user: username })
-      .select("-embeddings");
-    if (!item) {
-      return res.status(404).json({ message: "Item not found" });
-    }
+    const item = req.item;
     res.status(200).json({ message: "Item fetched successfully", item });
   } catch (err) {
     return res.status(500).json({ message: "Error fetching item" });
