@@ -9,6 +9,8 @@ app.use(cookieParser());
 
 // importing Routes
 import { authRouter } from "./routes/auth.routes.js";
+import { itemsRouter } from "./routes/items.routes.js";
 
 // using Routes
 app.use("/api/auth", authRouter);
+app.use("/api/item", itemsRouter);
